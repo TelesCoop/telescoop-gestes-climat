@@ -19,15 +19,8 @@ import { exit } from 'process'
 // We also need to keep all notification rules, which are not used for compilation
 // but important for thee UI.
 const rulesToKeep = [
-	'actions',
-	'actions pétrole',
+	// 'actions',
 	'bilan',
-	'logement . gaz',
-	'logement . gaz . biogaz',
-	'pétrole . pleins',
-	'pétrole . volume plein',
-	'transport . voiture . thermique',
-	'transport . ferry . surface',
 ]
 
 export function compressRules(jsonPathWithoutExtension) {
