@@ -7,12 +7,12 @@ logement:
     Le poste d'émission le plus important du logement en France consiste à chauffer l'air dans lequel on vit. L'empreinte ne sera pas du tout la même en fonction de la technologie de chauffage.
 
     Mais ce n'est pas tout : construction, entretien, chauffage de l'eau chaude, électricité, tant de postes qui dépendent avant tout d'un seul paramètre : le nombre de m².
-  couleur: '#04a4ac'
+  couleur: '#e58e26'
   icônes: 🏠
-  formule: logement . frequence reunion annuelle * logement . population reunion
+  formule: logement . blabla1 * logement . blabla2
 
-logement . frequence reunion annuelle:
-  question: Combien de fois vous réunissez-vous par an ?
+logement . blabla1:
+  question: Blabla 1 ?
   description: |
     Il s'agit de savoir combien de personnes partagent votre logement et toutes les consommations qu'il entraîne (construction, chauffage, etc).
 
@@ -27,8 +27,8 @@ logement . frequence reunion annuelle:
     mensuel: 12
     hebdomadaire: 50
 
-logement . population reunion:
-  question: Combien de gens sont présents aux réunion présentielle ?
+logement . blabla2:
+  question: Blabla 2 ?
   description: |
     Il s'agit de savoir combien de personnes partagent votre logement et toutes les consommations qu'il entraîne (construction, chauffage, etc).
 
