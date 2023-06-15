@@ -21,6 +21,7 @@ bilan:
       # - numérique
       # - transport
       # - alimentation
+      - transport
       - logement
   références:
     - https://avenirclimatique.org/action/

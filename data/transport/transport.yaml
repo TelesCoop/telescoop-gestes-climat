@@ -1,9 +1,66 @@
 transport:
-  titre: Transport
-  abréviation: transp.
-  couleur: '#b71540'
-  icônes: 🚦
+  titre: transport
+  abréviation: transpt.
   description: |
-    Cette catégorie regroupe tout ce qui touche à nos déplacements. Nous y avons également mis des usages qui pourraient être considérés comme *loisirs*, ayant trait aux vacances, tels que la caravane et le camping-car.
+    On peut voir notre transport comme un bâti passif qui n'impacterait pas le climat... on aurait tort !
 
-    Le calcul de l'empreinte du transport se trouve dans la [page empreinte](/documentation/transport/empreinte).
+    Le poste d'émission le plus important du transport en France consiste à chauffer l'air dans lequel on vit. L'empreinte ne sera pas du tout la même en fonction de la technologie de chauffage.
+
+    Mais ce n'est pas tout : construction, entretien, chauffage de l'eau chaude, électricité, tant de postes qui dépendent avant tout d'un seul paramètre : le nombre de m².
+  couleur: '#04a4ac'
+  icônes: 🍴
+  formule:
+    somme:
+     - réunion mensuelle
+     - voiture
+
+transport . réunion mensuelle:
+  formule: transport . frequence reunion annuelle * transport . population reunion
+
+transport . voiture:
+  formule: transport . frequence séminaire * transport . population reunion
+
+transport . frequence séminaire:
+  question: Combien de séminaire de plusieurs jours sont faits par an ?
+  description: |
+    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+
+    > Si vous vivez seul, répondez `1`.
+
+    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+
+    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+
+  par défaut: 1
+  suggestions:
+    annuel: 1
+    semestriel: 2
+
+transport . frequence reunion annuelle:
+  question: Combien de fois vous réunissez-vous par an ?
+  description: |
+    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+
+    > Si vous vivez seul, répondez `1`.
+
+    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+
+    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+
+  par défaut: 12
+  suggestions:
+    mensuel: 12
+    hebdomadaire: 50
+
+transport . population reunion:
+  question: Combien de gens sont présents aux réunion présentielle ?
+  description: |
+    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+
+    > Si vous vivez seul, répondez `1`.
+
+    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+
+    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+
+  par défaut: 5

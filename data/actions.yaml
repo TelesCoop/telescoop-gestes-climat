@@ -1,7 +1,7 @@
 actions:
   formule:
     somme:
-      - transport . arrêter l'avion
+      - logement . petite salle réunion
       # - transport . arrêter l'avion court
       # - transport . prendre moins l'avion
       # - alimentation . réduire viande . par deux
