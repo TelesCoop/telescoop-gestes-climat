@@ -9,18 +9,36 @@ logement:
     Mais ce n'est pas tout : construction, entretien, chauffage de l'eau chaude, électricité, tant de postes qui dépendent avant tout d'un seul paramètre : le nombre de m².
   couleur: '#04a4ac'
   icônes: 🏠
-  formule: 1
+  formule: logement . frequence reunion annuelle * logement . population reunion
 
-# logement . impact:
-#   formule:
-#     somme:
-#       - construction
-#       - électricité
-#       - chauffage
-#       - climatisation
-#       - vacances
-#       - transport . vacances . caravane . empreinte . construction amortie
-#       - transport . vacances . camping car . empreinte . construction amortie
+logement . frequence reunion annuelle:
+  question: Combien de fois vous réunissez-vous par an ?
+  description: |
+    Il s'agit de savoir combien de personnes partagent votre logement et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+
+    > Si vous vivez seul, répondez `1`.
+
+    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+
+    > Si vous êtes séparé avec un enfant qui alterne entre votre logement et un autre, vous pouvez saisir `1,5`.
+
+  par défaut: 12
+  suggestions:
+    mensuel: 12
+    hebdomadaire: 50
+
+logement . population reunion:
+  question: Combien de gens sont présents aux réunion présentielle ?
+  description: |
+    Il s'agit de savoir combien de personnes partagent votre logement et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+
+    > Si vous vivez seul, répondez `1`.
+
+    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+
+    > Si vous êtes séparé avec un enfant qui alterne entre votre logement et un autre, vous pouvez saisir `1,5`.
+
+  par défaut: 5
 
 # logement . saisie habitants:
 #   question: Combien de personnes vivent chez vous ?

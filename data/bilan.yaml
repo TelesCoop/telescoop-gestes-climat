@@ -19,8 +19,8 @@ bilan:
   formule:
     somme:
       # - numérique
-      - transport
-      - alimentation
+      # - transport
+      # - alimentation
       - logement
   références:
     - https://avenirclimatique.org/action/
