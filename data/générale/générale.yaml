@@ -1,0 +1,28 @@
+générale:
+  titre: Générale
+  couleur: '#4682B4'
+  abréviation: Gén.
+  icônes: 🏢
+  description: |
+    Information liés à votre entreprise.
+  formule: générale . salariés * générale . etp
+
+
+générale . salariés:
+  question: Combien de salariés avez vous dans votre entreprise ?
+  description: |
+    Il s'agit de savoir combien de personnes travaillent dans votre entreprise.
+  par défaut: 5
+  suggestions:
+    autoentreprise: 1
+  unité: personnes
+
+
+générale . etp:
+  question: Combien de personne en équivalent temps-pleins ?
+  description: |
+    Il s'agit de savoir combien de personnes travaillent à temps-plein dans votre entreprise.
+  par défaut: 5
+  suggestions:
+    autoentreprise: 1
+  unité: personnes

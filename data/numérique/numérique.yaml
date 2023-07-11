@@ -1,4 +1,4 @@
-divers . numérique:
+numérique:
   titre: Numérique
   abréviation: num.
   description: |
@@ -7,7 +7,33 @@ divers . numérique:
     Pourtant, son empreinte n'est pas forcément celle qu'on croit : par exemple, les multiples appareils de nos maisons sont étonnemment importants.
   couleur: '#B53471'
   icônes: 📺
-  formule: 1
-    # somme:
-    #   - internet
-    #   - appareils
+  formule: numérique . ordinateurs
+
+numérique . tous un ordinateur:
+  question: Tous les salariés ont-ils un ordinateur de travail ?
+  description: |
+    Il s'agit de savoir combien de personnes travaillent dans votre entreprise.
+  par défaut: oui
+
+numérique . combien ordinateurs:
+  question: Combien d'ordinateurs de travail avez-vous pour toute l'entreprise ?
+  description: |
+    Il s'agit de savoir combien d'ordinateurs sont utilisés dans votre entreprise.
+  par défaut: 5
+  unité: ordinateurs
+  non applicable si: numérique . tous un ordinateur
+  
+numérique . âge moyen ordinateurs:
+  question: Quel est l'âge moyen des ordinateurs de toute l'entreprise ?
+  description: |
+    Il s'agit de savoir l'âge moyen des ordinateurs utilisés dans votre entreprise.
+  par défaut: 5
+  unité: années
+
+numérique . ordinateurs:
+  formule:
+    variations:
+      - si: numérique . tous un ordinateur
+        alors: générale . salariés * 10
+      - sinon: numérique . combien ordinateurs
+  unité: kgCO₂e

@@ -9,6 +9,7 @@ logement:
     Mais ce n'est pas tout : construction, entretien, chauffage de l'eau chaude, électricité, tant de postes qui dépendent avant tout d'un seul paramètre : le nombre de m².
   couleur: '#e58e26'
   icônes: 🏠
+  
   formule: logement . blabla1 * logement . blabla2
 
 logement . blabla1:

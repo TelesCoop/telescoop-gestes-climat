@@ -18,9 +18,10 @@ bilan:
 
   formule:
     somme:
-      # - numérique
       # - transport
       # - alimentation
+      - générale
+      - numérique
       - transport
       - logement
   références:
