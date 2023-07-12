@@ -7,12 +7,23 @@ numérique:
     Pourtant, son empreinte n'est pas forcément celle qu'on croit : par exemple, les multiples appareils de nos maisons sont étonnemment importants.
   couleur: '#B53471'
   icônes: 📺
-  formule: numérique . ordinateurs
+  formule:
+    somme:
+      - numérique . bilan ordinateurs
+      - numérique . bilan écran externe
+
+numérique . intensité ordinateur portable:
+  formule: 156
+  unité: kgCO₂e/unité
+
+numérique . intensité écran:
+  formule: 248
+  unité: kgCO₂e/unité
 
 numérique . tous un ordinateur:
-  question: Tous les salariés ont-ils un ordinateur de travail ?
+  question: Tous les salariés ont-ils un seul ordinateur de travail ?
   description: |
-    Il s'agit de savoir combien de personnes travaillent dans votre entreprise.
+    Il s'agit de savoir si tous les salariés ont un seul ordinateur de travail.
   par défaut: oui
 
 numérique . combien ordinateurs:
@@ -22,7 +33,7 @@ numérique . combien ordinateurs:
   par défaut: 5
   unité: ordinateurs
   non applicable si: numérique . tous un ordinateur
-  
+
 numérique . âge moyen ordinateurs:
   question: Quel est l'âge moyen des ordinateurs de toute l'entreprise ?
   description: |
@@ -30,10 +41,39 @@ numérique . âge moyen ordinateurs:
   par défaut: 5
   unité: années
 
-numérique . ordinateurs:
+numérique . bilan ordinateurs:
   formule:
     variations:
       - si: numérique . tous un ordinateur
-        alors: générale . salariés * 10
-      - sinon: numérique . combien ordinateurs
+        alors: générale . salariés * numérique . intensité ordinateur portable / numérique . âge moyen ordinateurs
+      - sinon: numérique . combien ordinateurs * numérique . intensité ordinateur portable / numérique . âge moyen ordinateurs
+  unité: kgCO₂e
+
+numérique . tous un écran externe:
+  question: Tous les salariés ont-ils un seul écran externe ?
+  description: |
+    Il s'agit de savoir si tous les salariés ont un seul écran externe.
+  par défaut: oui
+
+numérique . combien écran externe:
+  question: Combien d'écran externe avez-vous pour toute l'entreprise ?
+  description: |
+    Il s'agit de savoir combien d'écran externe sont utilisés dans votre entreprise.
+  par défaut: 5
+  unité: écrans
+  non applicable si: numérique . tous un écran externe
+
+numérique . âge moyen écran externe:
+  question: Quel est l'âge moyen des écrans externes de toute l'entreprise ?
+  description: |
+    Il s'agit de savoir l'âge moyen des écrans externes utilisés dans votre entreprise.
+  par défaut: 5
+  unité: années
+
+numérique . bilan écran externe:
+  formule:
+    variations:
+      - si: numérique . tous un écran externe
+        alors: générale . salariés * numérique . intensité écran / numérique . âge moyen écran externe
+      - sinon: numérique . combien écran externe * numérique . intensité écran / numérique . âge moyen écran externe
   unité: kgCO₂e
