@@ -10,7 +10,8 @@ numérique:
   formule:
     somme:
       - numérique . bilan ordinateurs
-      - numérique . bilan écran externe
+      - numérique . bilan écrans externes
+      - numérique . bilan dépenses matériel informatique
 
 numérique . intensité ordinateur portable:
   formule: 156
@@ -26,7 +27,7 @@ numérique . tous un ordinateur:
     Il s'agit de savoir si tous les salariés ont un seul ordinateur de travail.
   par défaut: oui
 
-numérique . combien ordinateurs:
+numérique . nombre d'ordinateurs question:
   question: Combien d'ordinateurs de travail avez-vous pour toute l'entreprise ?
   description: |
     Il s'agit de savoir combien d'ordinateurs sont utilisés dans votre entreprise.
@@ -38,24 +39,27 @@ numérique . âge moyen ordinateurs:
   question: Quel est l'âge moyen des ordinateurs de toute l'entreprise ?
   description: |
     Il s'agit de savoir l'âge moyen des ordinateurs utilisés dans votre entreprise.
-  par défaut: 5
+  par défaut: 4
   unité: années
 
-numérique . bilan ordinateurs:
+numérique . nombre d'ordinateurs:
   formule:
     variations:
-      - si: numérique . tous un ordinateur
-        alors: générale . salariés * numérique . intensité ordinateur portable / numérique . âge moyen ordinateurs
-      - sinon: numérique . combien ordinateurs * numérique . intensité ordinateur portable / numérique . âge moyen ordinateurs
+        - si: numérique . tous un ordinateur
+          alors: générale . salariés
+        - sinon: numérique . nombre d'ordinateurs question
+
+numérique . bilan ordinateurs:
+  formule: numérique . nombre d'ordinateurs * intensité ordinateur portable / numérique . âge moyen ordinateurs
   unité: kgCO₂e
 
 numérique . tous un écran externe:
   question: Tous les salariés ont-ils un seul écran externe ?
   description: |
-    Il s'agit de savoir si tous les salariés ont un seul écran externe.
+    Il s'agit de savoir si tous les salariés ont un et un seul écran externe.
   par défaut: oui
 
-numérique . combien écran externe:
+numérique . nombre écrans externes question:
   question: Combien d'écran externe avez-vous pour toute l'entreprise ?
   description: |
     Il s'agit de savoir combien d'écran externe sont utilisés dans votre entreprise.
@@ -70,10 +74,28 @@ numérique . âge moyen écran externe:
   par défaut: 5
   unité: années
 
-numérique . bilan écran externe:
+numérique . nombre d'écrans externes:
   formule:
     variations:
-      - si: numérique . tous un écran externe
-        alors: générale . salariés * numérique . intensité écran / numérique . âge moyen écran externe
-      - sinon: numérique . combien écran externe * numérique . intensité écran / numérique . âge moyen écran externe
+        - si: tous un écran externe
+          alors: générale . salariés
+        - sinon: numérique . nombre écrans externes question
+
+numérique . bilan écrans externes:
+  formule: numérique . nombre d'écrans externes * intensité écran / numérique . âge moyen écran externe
   unité: kgCO₂e
+
+numérique . bilan dépenses matériel informatique:
+  formule: numérique . dépenses matériel informatique / numérique . facteur financier matériel informatique
+  unité: kgCO₂e
+
+numérique . dépenses matériel informatique:
+  question: Au cours de l'année, combien avez-vous dépensé en matériel informatique, hors ordinateurs et écrans ?
+  description: |
+    Par exemple souris, clavier, imprimante, adaptateurs, chargeurs....
+  par défaut: 5000
+  unité: euros
+
+numérique . facteur financier matériel informatique:
+  formule: 30
+  unité: kgCO₂e/euros
