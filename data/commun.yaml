@@ -22,3 +22,14 @@ jours par an:
   titre: Nombre de jours par an
   formule: 365
   unité: jour
+
+
+jours par année travaillés:
+  titre: Nombre de jours par année travaillé
+  formule: 220
+  unité: jour
+
+jours par semaine travaillés:
+  titre: Nombre de jours par semaine travaillé
+  formule: 5
+  unité: jour

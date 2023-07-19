@@ -11,56 +11,159 @@ transport:
   icônes: 🍴
   formule:
     somme:
-     - réunion mensuelle
-     - voiture
+     - transport . domicile-travail
+#
+#transport . réunion mensuelle:
+#  formule: transport . frequence reunion annuelle * transport . population reunion
+#
+#transport . voiture:
+#  formule: transport . frequence séminaire * transport . population reunion
+#
+#transport . frequence séminaire:
+#  question: Combien de séminaire de plusieurs jours sont faits par an ?
+#  description: |
+#    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+#
+#    > Si vous vivez seul, répondez `1`.
+#
+#    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+#
+#    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+#
+#  par défaut: 1
+#  suggestions:
+#    annuel: 1
+#    semestriel: 2
+#
+#transport . frequence reunion:
+#  question: Combien de fois vous réunissez-vous par an ?
+#  description: |
+#    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+#
+#    > Si vous vivez seul, répondez `1`.
+#
+#    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+#
+#    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+#
+#  par défaut: 12
+#  suggestions:
+#    mensuel: 12
+#    hebdomadaire: 50
+#
+#transport . population reunion:
+#  question: Combien de gens sont présents aux réunion présentielle ?
+#  description: |
+#    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
+#
+#    > Si vous vivez seul, répondez `1`.
+#
+#    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
+#
+#    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+#
+#  par défaut: 5
 
-transport . réunion mensuelle:
-  formule: transport . frequence reunion annuelle * transport . population reunion
-
-transport . voiture:
-  formule: transport . frequence séminaire * transport . population reunion
-
-transport . frequence séminaire:
-  question: Combien de séminaire de plusieurs jours sont faits par an ?
-  description: |
-    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
-
-    > Si vous vivez seul, répondez `1`.
-
-    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
-
-    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
-
-  par défaut: 1
-  suggestions:
-    annuel: 1
-    semestriel: 2
-
-transport . frequence reunion annuelle:
-  question: Combien de fois vous réunissez-vous par an ?
-  description: |
-    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
-
-    > Si vous vivez seul, répondez `1`.
-
-    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
-
-    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
-
-  par défaut: 12
-  suggestions:
-    mensuel: 12
-    hebdomadaire: 50
-
-transport . population reunion:
-  question: Combien de gens sont présents aux réunion présentielle ?
-  description: |
-    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
-
-    > Si vous vivez seul, répondez `1`.
-
-    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
-
-    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
-
+transport . jours présentiels:
+  question: Combien de jour par semaine êtes-vous présentiel ?
   par défaut: 5
+  suggestions:
+      1: 1
+      2: 2
+      3: 3
+      4: 4
+      5: 5
+
+
+transport . domicile-travail . voiture . nombre passager:
+    question: Combien de passager avez-vous en moyenne dans votre voiture lors des jours présentiels? (vous inclus)
+    par défaut: 1
+    type: nombre
+    suggestions:
+        1: 1
+        2: 2
+        3: 3
+        4: 4
+
+transport . domicile-travail:
+  titre: Répartion des modes de déplacement domicile-travail
+  description: |
+    Modes de déplacement moyens des salariés
+  question: Indiquer la répartition en pourcentage de chaque mode de déplacement (en %).
+  mosaique:
+    type: nombre
+    clé: répartition
+    total: 100
+    suggestions:
+      uniquement transport en commun:
+        transport en commun . répartition: 100
+        mobilité douce . répartition: 0
+        voiture . répartition: 0
+      mix urbain:
+        transport en commun . répartition: 40
+        mobilité douce . répartition: 30
+        voiture . répartition: 30
+      mix rural:
+        transport en commun . répartition: 10
+        mobilité douce . répartition: 10
+        voiture . répartition: 80
+    
+  formule:
+    somme:
+      - transport en commun
+      - mobilité douce
+      - voiture
+        
+transport . domicile-travail . transport en commun . répartition:
+  question: Répartition en transport en commun du déplacement domicile-travail ?
+  par défaut: 40
+
+transport . domicile-travail . mobilité douce . répartition:
+  question: Répartition en mobilité douce du déplacement domicile-travail ?
+  par défaut: 30
+
+transport . domicile-travail . voiture . répartition:
+  question: Répartition en voiture du déplacement domicile-travail ?
+  par défaut: 30
+
+transport . domicile-travail . transport en commun . distance moyenne:
+  question: Quelle est la distance moyenne domicile-travail en transport en commun ?
+  unité: km
+  par défaut: 10
+  
+transport . domicile-travail . mobilité douce . distance moyenne:
+  question: Quelle est la distance moyenne domicile-travail en mobilité douce ?
+  unité: km
+  par défaut: 10
+  
+transport . domicile-travail . voiture . distance moyenne:
+  question: Quelle est la distance moyenne domicile-travail en voiture ?
+  unité: km
+  par défaut: 10
+
+transport . intensité transport en commun:
+  formule: 0.05
+  unité: kgCO2e / km
+
+transport . intensité mobilité douce:
+  formule: 0
+  unité: kgCO2e / km
+  
+transport . intensité voiture:
+  formule: 0.116
+  unité: kgCO2e / km / passager
+
+transport . domicile-travail . transport en commun:
+  titre: Répartion Transport en commun
+  description: Déplacement en transport en commun
+  formule: répartition / 100 * transport . jours présentiels / jours par semaine travaillés * jours par année travaillés * distance moyenne
+
+transport . domicile-travail . mobilité douce:
+  titre: Répartion Mobilité douce
+  description: Déplacement à pied ou à vélo
+  formule: répartition / 100 * transport . jours présentiels / jours par semaine travaillés * jours par année travaillés * distance moyenne
+
+transport . domicile-travail . voiture:
+  titre: Répartion Voiture
+  description: Déplacement en voiture
+  formule: répartition / 100 * transport . jours présentiels / jours par semaine travaillés * jours par année travaillés * distance moyenne * nombre passager
