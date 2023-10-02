@@ -64,3 +64,44 @@ transport . population reunion:
     > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
 
   par défaut: 5
+
+
+transport . domicile-travail . répartition . voiture:
+  question: Pourcentage des trajets domicile-travail réalisés en voiture
+  par défaut: 30
+
+transport . domicile-travail . répartition . transport en commun:
+  question: Pourcentage des trajets domicile-travail réalisés en transport en commun
+  par défaut: 40
+
+transport . domicile-travail . répartition . mobilité douce:
+  question: Pourcentage des trajets domicile-travail réalisés en mobilité douce (vélo, pied, trotinette...)
+  par défaut: 30
+
+
+transport . domicile-travail:
+  résumé: |
+    modes de déplacement moyens des salariés
+  mosaique:
+    type: nombre
+    clé: nombre
+    total: 100
+    suggestions:
+      uniquement transport en commun:
+        répartition . transport en commun: 100
+      mix urbain:
+        répartition . mobilité douce: 30
+        répartition . transport en commun: 40
+        répartition . voiture: 30
+      mix rural:
+        répartition . mobilité douce: 10
+        répartition . transport en commun: 10
+        répartition . voiture: 80
+  question: Indiquer la répartition en pourcentage de chaque mode de déplacement.
+  titre: Répartition des transports domicile-travail par mode de déplacement
+  formule:
+    somme:
+      - répartition . transport en commun
+      - répartition . mobilité douce
+      - répartition . voiture
+
