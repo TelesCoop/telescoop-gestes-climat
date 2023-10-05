@@ -11,14 +11,40 @@ transport:
   icônes: 🍴
   formule:
     somme:
-     - réunion mensuelle
-     - voiture
+     - réunions
+     - domicile-travail
+        
+transport . domicile-travail:
+  formule: (100 - transport . domicile-travail . proportion télétravail) / 100 * générale . nombre de jours annuels travaillés * transport . domicile-travail . distance moyenne * transport . domicile-travail . intensité kilométrique / 100  
+  
+transport . domicile-travail . intensité kilométrique:
+  formule:
+    somme:
+      - transport . domicile-travail . répartition . voiture * transport . intensité kilométrique . voiture
+      - transport . domicile-travail . répartition . transport en commun * transport . intensité kilométrique . transport en commun
+      - transport . domicile-travail . répartition . mobilité douce * transport . intensité kilométrique . mobilité douce
+       
+transport . domicile-travail . proportion télétravail:
+  question : Quel proportion en moyenne des salariés est en télétravail ?
+  description: |
+    Par exemple pour 10 salariés, si 2 sont en télétravail complet, 3 salariés à 60% et 5 salariés  sans télétravail,
+    indiquez la moyenne, soit (2+3*0.6 / 10) = 38%.
 
-transport . réunion mensuelle:
-  formule: transport . frequence reunion annuelle * transport . population reunion
+  par défaut: 20
+  unité: "%"
 
-transport . voiture:
-  formule: transport . frequence séminaire * transport . population reunion
+transport . domicile-travail . distance moyenne :
+  question : Quelle est la distance moyenne entre le domicile de vos salariés et leur lieu de travail ?
+  unité: km
+  par défaut: 20
+
+transport . réunions:
+  formule: transport . réunions . fréquence * transport . réunions . population * transport . intensité kilométrique . train * transport . réunions . distance moyenne * 2
+  
+transport . réunions . distance moyenne:
+  question: Quelle est la distance moyenne effectué par les salariés pour les réunions régulières ?
+  unité: km
+  par défaut: 150
 
 transport . frequence séminaire:
   question: Combien de séminaire de plusieurs jours sont faits par an ?
@@ -36,50 +62,41 @@ transport . frequence séminaire:
     annuel: 1
     semestriel: 2
 
-transport . frequence reunion annuelle:
+transport . réunions . fréquence:
   question: Combien de fois vous réunissez-vous par an ?
   description: |
-    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
-
-    > Si vous vivez seul, répondez `1`.
-
-    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
-
-    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+    à remplir...
 
   par défaut: 12
   suggestions:
     mensuel: 12
     hebdomadaire: 50
 
-transport . population reunion:
-  question: Combien de gens sont présents aux réunion présentielle ?
+transport . réunions . population:
+  question: Combien de gens sont présents aux réunions régulières ?
   description: |
-    Il s'agit de savoir combien de personnes partagent votre transport et toutes les consommations qu'il entraîne (construction, chauffage, etc).
-
-    > Si vous vivez seul, répondez `1`.
-
-    > Si vous vivez avec votre conjoint et un enfant, répondez `3`.
-
-    > Si vous êtes séparé avec un enfant qui alterne entre votre transport et un autre, vous pouvez saisir `1,5`.
+    à remplir...
 
   par défaut: 5
-
 
 transport . domicile-travail . répartition . voiture:
   question: Pourcentage des trajets domicile-travail réalisés en voiture
   par défaut: 30
+  unité: "%"
 
 transport . domicile-travail . répartition . transport en commun:
   question: Pourcentage des trajets domicile-travail réalisés en transport en commun
   par défaut: 40
+  unité: "%"
 
 transport . domicile-travail . répartition . mobilité douce:
   question: Pourcentage des trajets domicile-travail réalisés en mobilité douce (vélo, pied, trotinette...)
   par défaut: 30
+  unité: "%"
 
 
-transport . domicile-travail:
+transport . domicile-travail . répartition:
+  non applicable si: transport . domicile-travail . proportion télétravail = 100
   résumé: |
     modes de déplacement moyens des salariés
   mosaique:
@@ -88,15 +105,15 @@ transport . domicile-travail:
     total: 100
     suggestions:
       uniquement transport en commun:
-        répartition . transport en commun: 100
+        transport en commun: 100
       mix urbain:
-        répartition . mobilité douce: 30
-        répartition . transport en commun: 40
-        répartition . voiture: 30
+        mobilité douce: 30
+        transport en commun: 40
+        voiture: 30
       mix rural:
-        répartition . mobilité douce: 10
-        répartition . transport en commun: 10
-        répartition . voiture: 80
+        mobilité douce: 10
+        transport en commun: 10
+        voiture: 80
   question: Indiquer la répartition en pourcentage de chaque mode de déplacement.
   titre: Répartition des transports domicile-travail par mode de déplacement
   formule:
@@ -105,3 +122,20 @@ transport . domicile-travail:
       - répartition . mobilité douce
       - répartition . voiture
 
+
+transport . intensité kilométrique . voiture:
+  formule: 0.200
+  unité: kgCO₂e/km
+
+transport . intensité kilométrique . transport en commun:
+  formule: 0.140
+  unité: kgCO₂e/km
+
+transport . intensité kilométrique . mobilité douce:
+  formule: 0
+  unité: kgCO₂e/km
+
+transport . intensité kilométrique . train:
+  formule: 0.015
+  unité: kgCO₂e/km
+  

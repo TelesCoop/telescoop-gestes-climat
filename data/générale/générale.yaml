@@ -26,3 +26,6 @@ générale . etp:
   suggestions:
     autoentreprise: 1
   unité: personnes
+
+générale . nombre de jours annuels travaillés:
+  formule: 218
